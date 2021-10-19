@@ -1,9 +1,13 @@
 package com.example.jetnote
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.compose.setContent
+
+import com.example.jetnote.theme.JetNotesTheme
+import com.example.jetnote.ui.screens.NotesScreen
+
 import com.example.jetnote.viewmodel.MainViewModel
 import com.example.jetnote.viewmodel.MainViewModelFactory
 
@@ -12,18 +16,20 @@ import com.example.jetnote.viewmodel.MainViewModelFactory
  */
 class MainActivity : AppCompatActivity() {
 
-  private val viewModel: MainViewModel by viewModels(factoryProducer = {
-    MainViewModelFactory(
-      this,
-      (application as JetNotesApplication).dependencyInjector.repository
-    )
-  })
+    private val viewModel: MainViewModel by viewModels(factoryProducer = {
+        MainViewModelFactory(
+            this,
+            (application as JetNotesApplication).dependencyInjector.repository
+        )
+    })
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    setContent {
-
+        setContent {
+            JetNotesTheme {
+                NotesScreen(viewModel = viewModel)
+            }
+        }
     }
-  }
 }
